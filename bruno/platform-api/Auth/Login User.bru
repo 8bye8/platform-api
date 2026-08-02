@@ -1,0 +1,40 @@
+meta {
+  name: Login User
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/auth/login
+  body: json
+  auth: none
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "username": "{{username}}",
+    "password": "{{password}}"
+  }
+}
+
+script:post-response {
+  if (res.getStatus() === 200) {
+    const authToken = res.getBody().trim();
+    bru.setVar("authToken", authToken);
+    bru.setEnvVar("authToken", authToken, { persist: true });
+  }
+}
+
+tests {
+  test("logs in successfully", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("returns an access token", function() {
+    expect(res.getBody()).to.be.a("string").and.not.be.empty;
+  });
+}
