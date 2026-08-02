@@ -1,0 +1,15 @@
+version: '3'
+
+dotenv:
+  - .env
+
+tasks:
+  migrate:up:
+    desc: Apply all pending database migrations
+    cmds:
+      - goose -dir migrations postgres "$DB_CONNECTION_STRING" up
+
+  migrate:down:
+    desc: Revert the most recently applied database migration
+    cmds:
+      - goose -dir migrations postgres "$DB_CONNECTION_STRING" down

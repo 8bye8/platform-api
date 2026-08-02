@@ -1,0 +1,13 @@
+services:
+  db:
+    image: postgres:18.4
+    container_name: postgres_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: platform8bye8
+      POSTGRES_PASSWORD: platform8bye8
+      POSTGRES_DB: platform8bye8
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./_postgres_data:/var/lib/postgresql

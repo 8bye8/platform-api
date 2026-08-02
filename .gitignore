@@ -1,0 +1,4 @@
+.env
+.idea
+_postgres_data/
+tmp

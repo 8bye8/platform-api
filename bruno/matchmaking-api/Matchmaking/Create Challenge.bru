@@ -1,0 +1,35 @@
+meta {
+  name: Create Challenge
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/mm/challenge
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{authToken}}
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "min_rating": 1200,
+    "max_rating": 1800,
+    "rating": 1500,
+    "side_to_play": "random",
+    "time_control": "5_0"
+  }
+}
+
+tests {
+  test("creates an open challenge", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}
